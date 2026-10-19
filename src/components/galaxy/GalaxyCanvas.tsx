@@ -222,7 +222,7 @@ export const GalaxyCanvas: React.FC = () => {
       const dx = pos[0] - target[0];
       const dy = pos[1] - target[1];
       const dz = pos[2] - target[2];
-      const r = Math.max(0.06, Math.hypot(dx, dy, dz));
+      const r = Math.max(0.0012, Math.hypot(dx, dy, dz));
       const phi = Math.acos(clamp(dy / r, -0.999, 0.999));
       const theta = Math.atan2(dx, dz);
       return { r, phi, theta };
@@ -277,7 +277,7 @@ export const GalaxyCanvas: React.FC = () => {
       e.preventDefault();
       isTransitioningCamera = false;
       const zoomFactor = Math.exp(e.deltaY * 0.0011);
-      targetSpherical.r = clamp(targetSpherical.r * zoomFactor, 0.06, 92.0);
+      targetSpherical.r = clamp(targetSpherical.r * zoomFactor, 0.0012, 92.0);
     };
 
     const onContextMenu = (e: MouseEvent) => e.preventDefault();
@@ -386,20 +386,20 @@ export const GalaxyCanvas: React.FC = () => {
           const bPos = livePlanetPositions[state.selectedPlanetId];
           const inspectDist =
             body.id === 'sun'
-              ? 1.85
+              ? 0.052
               : body.parentBodyId
-              ? 0.16
+              ? 0.0026
               : body.hasRings
-              ? 0.34
+              ? 0.0082
               : body.hasCometTail
-              ? 0.45
-              : 0.28;
+              ? 0.014
+              : 0.0052;
 
           desiredTarget[0] = bPos[0];
           desiredTarget[1] = bPos[1];
           desiredTarget[2] = bPos[2];
-          desiredCamPos[0] = bPos[0] + inspectDist * 0.35;
-          desiredCamPos[1] = bPos[1] + inspectDist * 0.58;
+          desiredCamPos[0] = bPos[0] + inspectDist * 0.32;
+          desiredCamPos[1] = bPos[1] + inspectDist * 0.56;
           desiredCamPos[2] = bPos[2] + inspectDist;
         } else {
           desiredCamPos[0] = state.cameraPose.position[0];
@@ -425,7 +425,7 @@ export const GalaxyCanvas: React.FC = () => {
           desiredTarget[1] = liveTarget[1];
           desiredTarget[2] = liveTarget[2];
         } else {
-          const lockAlpha = 1.0 - Math.exp(-12.0 * dt);
+          const lockAlpha = 1.0 - Math.exp(-15.0 * dt);
           camTarget[0] = lerp(camTarget[0], liveTarget[0], lockAlpha);
           camTarget[1] = lerp(camTarget[1], liveTarget[1], lockAlpha);
           camTarget[2] = lerp(camTarget[2], liveTarget[2], lockAlpha);
@@ -433,7 +433,7 @@ export const GalaxyCanvas: React.FC = () => {
       }
 
       if (isTransitioningCamera) {
-        const alpha = 1.0 - Math.exp(-3.8 * dt);
+        const alpha = 1.0 - Math.exp(-4.2 * dt);
         camPos[0] = lerp(camPos[0], desiredCamPos[0], alpha);
         camPos[1] = lerp(camPos[1], desiredCamPos[1], alpha);
         camPos[2] = lerp(camPos[2], desiredCamPos[2], alpha);
@@ -455,7 +455,7 @@ export const GalaxyCanvas: React.FC = () => {
             camTarget[1] - desiredTarget[1],
             camTarget[2] - desiredTarget[2]
           );
-        if (distErr < 0.03) {
+        if (distErr < 0.0003) {
           isTransitioningCamera = false;
         }
       } else {
@@ -520,7 +520,7 @@ export const GalaxyCanvas: React.FC = () => {
         camPos[2] = camTarget[2] + spherical.r * Math.sin(spherical.phi) * Math.cos(spherical.theta);
       }
 
-      if (Math.abs(spherical.r - state.cameraDistanceKpc) > 0.08) {
+      if (Math.abs(spherical.r - state.cameraDistanceKpc) > 0.0005) {
         state.setCameraDistanceKpc(spherical.r);
       }
 
@@ -580,7 +580,7 @@ export const GalaxyCanvas: React.FC = () => {
 
       // 4. COMPUTE CAMERA MATRICES
       const aspect = Math.max(1, canvas.width) / Math.max(1, canvas.height);
-      const projMatrix = mat4Perspective((48 * Math.PI) / 180, aspect, 0.015, 260.0);
+      const projMatrix = mat4Perspective((48 * Math.PI) / 180, aspect, 0.0002, 260.0);
       const viewMatrix = mat4LookAt(camPos, camTarget, [0, 1, 0]);
       const viewProjMatrix = mat4Multiply(projMatrix, viewMatrix);
 
@@ -715,12 +715,13 @@ export const GalaxyCanvas: React.FC = () => {
       }
 
       // 8b. Solar System Orrery Orbits, Moon Orbit, Saturn/Uranus Rings, Comet Tails & Exoplanet Orbits
-      const showDetailedOrrery =
-        state.activeMode === 'planets' || spherical.r < 6.0;
+      // Fade out planetary orbit lines when zoomed out to Galactic scale (spherical.r > 0.25 kpc)
+      const orreryVisibility = clamp(1.0 - (spherical.r - 0.14) / 0.14, 0.0, 1.0);
+      const showDetailedOrrery = orreryVisibility > 0.01;
 
       if (showDetailedOrrery) {
         for (const body of CELESTIAL_BODIES) {
-          if (body.orreryRadiusUnits > 0.001) {
+          if (body.orreryRadiusUnits > 0.0001) {
             const isSelected = state.selectedPlanetId === body.id;
             const orbitPts = computeOrbitLoopVertices(
               body,
@@ -728,24 +729,27 @@ export const GalaxyCanvas: React.FC = () => {
               state.rotationSpeedMultiplier,
               body.hasCometTail ? 84 : 64
             );
-            const orbitAlpha = isSelected
-              ? 0.72
+            const baseAlpha = isSelected
+              ? 0.78
               : body.hasCometTail
-              ? 0.36
+              ? 0.42
               : body.isSolarSystem
-              ? 0.25
-              : 0.32;
+              ? 0.30
+              : 0.36;
+            const orbitAlpha = baseAlpha * orreryVisibility;
             const rgb = hexToRgbNormalized(body.accentColor);
             for (let i = 0; i < orbitPts.length - 1; i++) {
               pushSegment(orbitPts[i], orbitPts[i + 1], rgb, orbitAlpha);
             }
           }
 
-          // 3D Concentric Planetary Rings for Saturn & Uranus
+          // 3D Concentric Planetary Rings for Saturn & Uranus (scaled to sub-parsec micro-orrery)
           if (body.hasRings && livePlanetPositions[body.id]) {
             const pCenter = livePlanetPositions[body.id];
             const ringRadii =
-              body.id === 'saturn' ? [0.032, 0.044, 0.056] : [0.026, 0.035];
+              body.id === 'saturn'
+                ? [0.00075, 0.00105, 0.00135]
+                : [0.0006, 0.00085];
             const ringTilt = body.id === 'saturn' ? 0.46 : 1.35;
             const sinT = Math.sin(ringTilt);
             const cosT = Math.cos(ringTilt);
@@ -762,7 +766,7 @@ export const GalaxyCanvas: React.FC = () => {
                   [pCenter[0] + x0, pCenter[1] + z0 * sinT, pCenter[2] + z0 * cosT],
                   [pCenter[0] + x1, pCenter[1] + z1 * sinT, pCenter[2] + z1 * cosT],
                   body.primaryColorRgb,
-                  0.78
+                  0.82 * orreryVisibility
                 );
               }
             }
@@ -774,13 +778,13 @@ export const GalaxyCanvas: React.FC = () => {
             const dx = cPos[0] - SOLAR_ORIGIN_KPC[0];
             const dy = cPos[1] - SOLAR_ORIGIN_KPC[1];
             const dz = cPos[2] - SOLAR_ORIGIN_KPC[2];
-            const distFromSun = Math.max(0.05, Math.hypot(dx, dy, dz));
+            const distFromSun = Math.max(0.002, Math.hypot(dx, dy, dz));
             const dirX = dx / distFromSun;
             const dirY = dy / distFromSun;
             const dirZ = dz / distFromSun;
 
-            // Tail length grows longer when closer to perihelion
-            const tailLength = clamp(0.32 / Math.sqrt(distFromSun), 0.16, 0.48);
+            // Tail length grows longer when closer to perihelion (scaled to micro-orrery)
+            const tailLength = clamp(0.00095 / Math.sqrt(distFromSun), 0.0042, 0.0115);
 
             // Multi-ray fan for Ion Tail (cyan-blue) and Dust Tail (curved white-cyan)
             const fanRays = 7;
@@ -800,7 +804,8 @@ export const GalaxyCanvas: React.FC = () => {
                   cPos[1] + (dirY + spread * 0.4) * tailLength * t1,
                   cPos[2] + (dirZ - spread) * tailLength * t1,
                 ];
-                const alpha = (1.0 - t0) * (1.0 - Math.abs(rIdx) / (fanRays + 2)) * 0.65;
+                const alpha =
+                  (1.0 - t0) * (1.0 - Math.abs(rIdx) / (fanRays + 2)) * 0.68 * orreryVisibility;
                 pushSegment(p0, p1, body.primaryColorRgb, alpha);
               }
             }
@@ -959,33 +964,32 @@ export const GalaxyCanvas: React.FC = () => {
       }
 
       // 8g. DRAW 3D PROCEDURAL PLANET, MOON, COMET & EXOPLANET SPHERES
-      if (showDetailedOrrery) {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-        gl.useProgram(planetProgram);
-        gl.uniformMatrix4fv(
-          gl.getUniformLocation(planetProgram, 'modelViewMatrix'),
-          false,
-          viewMatrix
-        );
-        gl.uniformMatrix4fv(
-          gl.getUniformLocation(planetProgram, 'projectionMatrix'),
-          false,
-          projMatrix
-        );
-        gl.uniform1f(gl.getUniformLocation(planetProgram, 'uPixelRatio'), pixelRatio);
-        gl.uniform1f(gl.getUniformLocation(planetProgram, 'uTime'), elapsed);
+      // At galactic distances, PLANET_VERTEX_SHADER automatically shrinks planets to 0px while keeping the Sun as a pinpoint star
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      gl.useProgram(planetProgram);
+      gl.uniformMatrix4fv(
+        gl.getUniformLocation(planetProgram, 'modelViewMatrix'),
+        false,
+        viewMatrix
+      );
+      gl.uniformMatrix4fv(
+        gl.getUniformLocation(planetProgram, 'projectionMatrix'),
+        false,
+        projMatrix
+      );
+      gl.uniform1f(gl.getUniformLocation(planetProgram, 'uPixelRatio'), pixelRatio);
+      gl.uniform1f(gl.getUniformLocation(planetProgram, 'uTime'), elapsed);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, planetPosBuf);
-        gl.bufferData(gl.ARRAY_BUFFER, planetPosArray, gl.DYNAMIC_DRAW);
-        bindAttrib(planetProgram, 'position', planetPosBuf, 3);
-        bindAttrib(planetProgram, 'aPrimaryColor', planetPrimaryColBuf, 3);
-        bindAttrib(planetProgram, 'aSecondaryColor', planetSecondaryColBuf, 3);
-        bindAttrib(planetProgram, 'aPointSize', planetSizeBuf, 1);
-        bindAttrib(planetProgram, 'aStyleId', planetStyleBuf, 1);
+      gl.bindBuffer(gl.ARRAY_BUFFER, planetPosBuf);
+      gl.bufferData(gl.ARRAY_BUFFER, planetPosArray, gl.DYNAMIC_DRAW);
+      bindAttrib(planetProgram, 'position', planetPosBuf, 3);
+      bindAttrib(planetProgram, 'aPrimaryColor', planetPrimaryColBuf, 3);
+      bindAttrib(planetProgram, 'aSecondaryColor', planetSecondaryColBuf, 3);
+      bindAttrib(planetProgram, 'aPointSize', planetSizeBuf, 1);
+      bindAttrib(planetProgram, 'aStyleId', planetStyleBuf, 1);
 
-        gl.drawArrays(gl.POINTS, 0, planetCount);
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-      }
+      gl.drawArrays(gl.POINTS, 0, planetCount);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
       // 9. PROJECT 3D GALACTIC REGIONS & PLANETARY MARKERS TO 2D SCREEN AT ~20 HZ
       markerTimer += dt;
@@ -1009,7 +1013,7 @@ export const GalaxyCanvas: React.FC = () => {
         });
         setProjectedMarkers(nextMarkers);
 
-        if (state.activeMode === 'planets' || spherical.r < 3.5) {
+        if (spherical.r < 0.24) {
           const nextPlanetMarkers: ProjectedPlanetMarker[] = CELESTIAL_BODIES.map((body) => {
             const worldPos = livePlanetPositions[body.id] ?? body.hostStarPosKpc;
             const proj = projectWorldToScreen(worldPos, viewProjMatrix, cssW, cssH);
@@ -1050,7 +1054,7 @@ export const GalaxyCanvas: React.FC = () => {
     };
   }, [qualityTier]);
 
-  const showPlanetPins = activeMode === 'planets' || cameraDistanceKpc < 3.5;
+  const showPlanetPins = cameraDistanceKpc < 0.24;
 
   return (
     <div className="relative w-full h-full select-none overflow-hidden bg-[#030509]">

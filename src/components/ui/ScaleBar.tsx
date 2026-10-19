@@ -43,7 +43,7 @@ export const ScaleBar: React.FC = () => {
               <div className="h-1.5 w-20 border-b border-l border-r border-[#67E8F9]/80" />
             </div>
             <div className="font-mono text-[11px] text-[#F4F7FB]">
-              <span>{scaleInfo.scaleBarKpc} kpc</span>
+              <span>{scaleInfo.scaleBarKpc}</span>
               <span className="mx-1 text-[#64748B]">≈</span>
               <span className="text-[#67E8F9]">{scaleInfo.scaleBarLy}</span>
             </div>
@@ -56,7 +56,11 @@ export const ScaleBar: React.FC = () => {
         <div className="hidden sm:flex items-center gap-3 font-mono text-[11px]">
           <div>
             <span className="text-[#64748B] block text-[9px] uppercase">Cự ly Camera</span>
-            <span className="text-[#F4F7FB]">{cameraDistanceKpc.toFixed(2)} kpc</span>
+            <span className="text-[#F4F7FB]">
+              {cameraDistanceKpc < 0.24
+                ? `${(cameraDistanceKpc * 1000).toFixed(1)} pc (~${Math.max(1, Math.round(cameraDistanceKpc * 650))} AU)`
+                : `${cameraDistanceKpc.toFixed(2)} kpc`}
+            </span>
           </div>
 
           <div className="flex items-center gap-1.5">

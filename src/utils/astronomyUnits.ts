@@ -23,40 +23,54 @@ export function formatDistanceKpcAndLy(kpc: number): string {
 
 export function getScaleViewLabel(cameraDistanceKpc: number): {
   level: string;
-  scaleBarKpc: number;
+  scaleBarKpc: number | string;
   scaleBarLy: string;
 } {
   if (cameraDistanceKpc > 36) {
     return {
       level: 'Toàn Cảnh Liên Thiên Hà',
-      scaleBarKpc: 10,
+      scaleBarKpc: '10 kpc',
       scaleBarLy: '32.600 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 16) {
     return {
       level: 'Toàn Bộ Đĩa Ngân Hà',
-      scaleBarKpc: 5,
+      scaleBarKpc: '5 kpc',
       scaleBarLy: '16.300 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 6) {
     return {
       level: 'Phân Khu Nhánh Xoắn Ốc',
-      scaleBarKpc: 2,
+      scaleBarKpc: '2 kpc',
       scaleBarLy: '6.520 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 1.8) {
     return {
       level: 'Vùng Lân Cận Sao Cục Bộ',
-      scaleBarKpc: 0.5,
+      scaleBarKpc: '0,5 kpc',
       scaleBarLy: '1.630 năm ánh sáng',
     };
   }
+  if (cameraDistanceKpc > 0.24) {
+    return {
+      level: 'Cận Cảnh Cụm Sao (Sub-Parsec)',
+      scaleBarKpc: '0,1 kpc',
+      scaleBarLy: '326 năm ánh sáng',
+    };
+  }
+  if (cameraDistanceKpc > 0.015) {
+    return {
+      level: 'Vi Mô Hệ Mặt Trời (Thang Quỹ Đạo AU)',
+      scaleBarKpc: '10 AU',
+      scaleBarLy: '1,496 tỷ km',
+    };
+  }
   return {
-    level: 'Cận Cảnh Lõi Thiên Hà (Sub-Parsec)',
-    scaleBarKpc: 0.1,
-    scaleBarLy: '326 năm ánh sáng',
+    level: 'Cận Cảnh Hành Tinh & Vệ Tinh',
+    scaleBarKpc: '1,0 AU',
+    scaleBarLy: '149,6 triệu km',
   };
 }

@@ -188,16 +188,26 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
 
     if (mode === 'planets') {
       updates.selectedRegionId = null;
-      if (!state.selectedPlanetId) {
-        updates.selectedPlanetId = 'earth';
-      }
+      updates.selectedPlanetId = state.selectedPlanetId || 'sun';
       updates.cameraPose = {
         position: [
-          SOLAR_ORIGIN_KPC[0] + 0.0,
-          SOLAR_ORIGIN_KPC[1] + 1.45,
-          SOLAR_ORIGIN_KPC[2] + 2.25,
+          SOLAR_ORIGIN_KPC[0],
+          SOLAR_ORIGIN_KPC[1] + 0.036,
+          SOLAR_ORIGIN_KPC[2] + 0.056,
         ],
         target: SOLAR_ORIGIN_KPC,
+        transitionId: state.cameraPose.transitionId + 1,
+      };
+    } else if (mode === 'overview' && state.cameraDistanceKpc < 1.2) {
+      updates.cameraPose = {
+        position: [0, 17.5, 25.5],
+        target: [0, 0, 0],
+        transitionId: state.cameraPose.transitionId + 1,
+      };
+    } else if (mode === 'regions' && state.cameraDistanceKpc < 0.8) {
+      updates.cameraPose = {
+        position: [0, 14.5, 22.0],
+        target: [0, 0, 0],
         transitionId: state.cameraPose.transitionId + 1,
       };
     } else if (mode === 'dark-matter') {
@@ -260,7 +270,12 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
 
     const state = get();
     const [hx, hy, hz] = body.hostStarPosKpc;
-    const viewDist = body.isSolarSystem ? Math.max(0.55, body.orreryRadiusUnits * 1.45 + 0.35) : 0.55;
+    const viewDist =
+      body.id === 'sun'
+        ? 0.056
+        : body.isSolarSystem
+        ? Math.max(0.0055, body.orreryRadiusUnits * 0.45 + 0.0035)
+        : 0.011;
 
     set({
       hasDismissedHero: true,
@@ -336,15 +351,15 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
       hasDismissedHero: true,
       activeMode: 'planets',
       selectedRegionId: null,
-      selectedPlanetId: 'earth',
+      selectedPlanetId: 'sun',
       showSolarBeacon: true,
       cameraControlMode: 'orbit',
       tour: { ...state.tour, isActive: false, isPlaying: false },
       cameraPose: {
         position: [
           SOLAR_ORIGIN_KPC[0],
-          SOLAR_ORIGIN_KPC[1] + 1.35,
-          SOLAR_ORIGIN_KPC[2] + 2.1,
+          SOLAR_ORIGIN_KPC[1] + 0.036,
+          SOLAR_ORIGIN_KPC[2] + 0.056,
         ],
         target: SOLAR_ORIGIN_KPC,
         transitionId: state.cameraPose.transitionId + 1,

@@ -101,11 +101,21 @@ export const PLANET_VERTEX_SHADER = /* glsl */ `
 
   void main() {
     vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
-    float camDist = max(0.08, -mvPos.z);
+    float camDist = max(0.001, -mvPos.z);
 
-    // Scale-aware 3D sphere size so planets are clearly visible both in Solar System view and close-up
-    float scaledSize = aPointSize * uPixelRatio * clamp(3.6 / pow(camDist, 0.55), 0.75, 4.8);
-    gl_PointSize = clamp(scaledSize, 6.0, 92.0);
+    // Multi-scale sizing:
+    // - At Solar System micro-scale (camDist ~ 0.002 to 0.08 kpc), planets render as 3D shaded spheres
+    // - At Galactic scale (camDist > 0.25 kpc), planets fade to 0px while the Sun shrinks to a pinpoint star
+    float microFactor = clamp(0.22 / pow(camDist, 0.45), 0.65, 3.2);
+    float galacticFade = aStyleId < 0.5 ? 1.0 : smoothstep(0.28, 0.10, camDist);
+
+    float scaledSize = aPointSize * uPixelRatio * microFactor * galacticFade;
+    if (aStyleId < 0.5 && camDist > 0.22) {
+      // At galactic distances, the Sun appears as a compact luminous star point
+      scaledSize = clamp(18.0 * uPixelRatio / pow(camDist, 0.45), 5.0 * uPixelRatio, 14.0 * uPixelRatio);
+    }
+
+    gl_PointSize = clamp(scaledSize, 0.0, 96.0);
 
     vPrimaryColor = aPrimaryColor;
     vSecondaryColor = aSecondaryColor;

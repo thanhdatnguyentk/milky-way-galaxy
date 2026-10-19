@@ -67,7 +67,15 @@ export const PlanetaryExplorer: React.FC = () => {
   const handleViewFullSolarOrrery = () => {
     selectPlanet('sun');
     flyToPose(
-      [SOLAR_ORIGIN_KPC[0], SOLAR_ORIGIN_KPC[1] + 1.55, SOLAR_ORIGIN_KPC[2] + 2.35],
+      [SOLAR_ORIGIN_KPC[0], SOLAR_ORIGIN_KPC[1] + 0.036, SOLAR_ORIGIN_KPC[2] + 0.056],
+      SOLAR_ORIGIN_KPC
+    );
+  };
+
+  const handleZoomOutToOrionArm = () => {
+    selectPlanet(null);
+    flyToPose(
+      [SOLAR_ORIGIN_KPC[0] + 0.65, SOLAR_ORIGIN_KPC[1] + 0.95, SOLAR_ORIGIN_KPC[2] + 1.45],
       SOLAR_ORIGIN_KPC
     );
   };
@@ -91,8 +99,9 @@ export const PlanetaryExplorer: React.FC = () => {
           </div>
 
           <p className="mt-1 text-[11px] text-[#94A3B8] leading-relaxed">
-            Mô hình 3D Hệ Mặt Trời (Trái Đất, Mặt Trăng, Sao Thổ, Sao Chổi Halley...) và các hệ
-            Ngoại Hành Tinh tiêu biểu trong Ngân Hà.
+            Hệ Mặt Trời thực tế chỉ rộng <span className="font-mono text-[#F4F7FB]">~80 AU (0,0004 pc)</span>{' '}
+            so với Ngân Hà <span className="font-mono text-[#F4F7FB]">32.000 pc</span>. Camera tự động thu
+            phóng sâu vào thang vi mô (Sub-Parsec) để hiển thị quỹ đạo 3D và ẩn đi khi nhìn toàn thiên hà.
           </p>
 
           {/* Quick Camera Presets */}
@@ -112,6 +121,14 @@ export const PlanetaryExplorer: React.FC = () => {
             >
               <Globe className="h-3 w-3" />
               <span>Trái Đất & Mặt Trăng</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleZoomOutToOrionArm}
+              className="col-span-2 flex items-center justify-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] font-mono text-[#CBD5E1] hover:bg-white/10 transition"
+            >
+              <Compass className="h-3 w-3 text-[#7AA8FF]" />
+              <span>Thu Nhỏ Ra Nhánh Orion (So Sánh Tỉ Lệ Ngân Hà)</span>
             </button>
           </div>
 
