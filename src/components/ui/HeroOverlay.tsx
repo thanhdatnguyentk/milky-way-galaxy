@@ -78,10 +78,13 @@ export const HeroOverlay: React.FC = () => {
               </h1>
 
               <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-[#94A3B8]">
-                Bay xuyên qua bốn nhánh xoắn ốc logarit, quan sát các vườn ươm sao phát sáng, định
-                vị Hệ Mặt Trời ở khoảng cách <span className="font-mono text-[#F4F7FB]">8,178 kpc</span>,
-                và trực tiếp tương tác với động lực học quỹ đạo N-body, sóng xung kích siêu tân tinh
-                cùng 13,8 tỷ năm tiến hóa của thiên hà.
+                Bay xuyên qua bốn nhánh xoắn ốc logarit, khám phá trực tiếp{' '}
+                <strong className="text-[#F4F7FB]">
+                  Hệ Mặt Trời 3D (Trái Đất, Mặt Trăng, Sao Thổ, Sao Chổi Halley...)
+                </strong>{' '}
+                và các hệ <strong className="text-[#F4F7FB]">Ngoại Hành Tinh</strong> ở khoảng cách{' '}
+                <span className="font-mono text-[#F4F7FB]">8,178 kpc</span>, đồng thời tương tác với
+                quỹ đạo N-body, siêu tân tinh và 13,8 tỷ năm tiến hóa thiên hà.
               </p>
 
               {/* 4 Signature Entry CTAs */}
@@ -97,11 +100,11 @@ export const HeroOverlay: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={startGuidedTour}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-[#7AA8FF]/40 bg-[#7AA8FF]/15 px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#F4F7FB] transition hover:bg-[#7AA8FF]/25"
+                  onClick={locateSun}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-emerald-400/45 bg-emerald-500/15 px-4 py-3 text-xs font-semibold uppercase tracking-wider text-emerald-300 transition hover:bg-emerald-500/25"
                 >
-                  <Play className="h-4 w-4 text-[#7AA8FF]" />
-                  <span>Hành Trình Thuyết Minh</span>
+                  <Sun className="h-4 w-4" />
+                  <span>Hệ Mặt Trời, Trái Đất & Hành Tinh</span>
                 </button>
 
                 <button
@@ -115,11 +118,11 @@ export const HeroOverlay: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={locateSun}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-4 py-2.5 text-xs font-medium tracking-wide text-emerald-300 transition hover:bg-emerald-500/20"
+                  onClick={startGuidedTour}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-[#7AA8FF]/40 bg-[#7AA8FF]/15 px-4 py-2.5 text-xs font-medium tracking-wide text-[#F4F7FB] transition hover:bg-[#7AA8FF]/25"
                 >
-                  <Sun className="h-3.5 w-3.5" />
-                  <span>Chúng Ta Ở Đâu? (Tìm Mặt Trời)</span>
+                  <Play className="h-3.5 w-3.5 text-[#7AA8FF]" />
+                  <span>Hành Trình Thuyết Minh Tự Động</span>
                 </button>
               </div>
 

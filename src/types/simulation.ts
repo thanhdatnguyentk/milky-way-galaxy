@@ -3,6 +3,7 @@ import type { ScienceProvenanceType } from './galaxy';
 export type ActiveObservatoryMode =
   | 'overview'
   | 'regions'
+  | 'planets'
   | 'evolution'
   | 'gravity'
   | 'supernova'

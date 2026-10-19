@@ -254,6 +254,21 @@ export const SCIENCE_SOURCES: SimulationMetadata[] = [
       'Được sử dụng để sinh phân bố hạt GPU 3D, các dải bụi liên sao và đường cong quay vi sai.',
     referenceUrl: 'https://iopscience.iop.org/article/10.3847/1538-4357/ab4a11',
   },
+  {
+    id: 'nasa-jpl-exoplanet-archive',
+    name: 'Lịch Thiên Văn Hệ Mặt Trời NASA JPL DE440 & NASA Exoplanet Archive',
+    category: 'Observational Data',
+    institutionOrSource: 'NASA Jet Propulsion Laboratory (JPL) / Caltech IPAC',
+    publicationYear: 2024,
+    spatialResolution: 'Quỹ đạo Keplerian 3D của 8 hành tinh, Mặt Trăng, hành tinh lùn, sao chổi & ngoại hành tinh',
+    baryonicMassResolution: 'Từ sao chổi (~10¹⁴ kg) đến Sao Mộc (1,898 × 10²⁷ kg)',
+    cosmologyModel: 'Cơ học quỹ đạo Kepler 3D đa cấp (Nhật tâm & Địa tâm cho Mặt Trăng)',
+    summary:
+      'Cung cấp thông số bán trục lớn, tâm sai elip, độ nghiêng quỹ đạo, chu kỳ quay, thành phần khí quyển và nhiệt độ bề mặt của Trái Đất, Mặt Trăng, 8 hành tinh Hệ Mặt Trời, Sao Chổi Halley / Hale-Bopp và các hệ ngoại hành tinh (TRAPPIST-1e, Proxima b, 55 Cancri e...).',
+    fidelityNote:
+      'Khoảng cách quỹ đạo trong Hệ Mặt Trời được ánh xạ theo thang Orrery 3D trực quan quanh Mặt Trời để có thể quan sát đồng thời cùng cấu trúc Ngân Hà.',
+    referenceUrl: 'https://exoplanetarchive.ipac.caltech.edu/',
+  },
 ];
 
 export const GAIA_NEARBY_STARS: GaiaStarRecord[] = [

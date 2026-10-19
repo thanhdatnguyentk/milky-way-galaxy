@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Orbit,
   Compass,
+  Globe,
   Clock,
   Atom,
   Zap,
@@ -21,6 +22,7 @@ const MODE_ITEMS: {
   icon: React.FC<{ className?: string }>;
 }[] = [
   { id: 'overview', label: 'Bản Đồ 3D', icon: Orbit },
+  { id: 'planets', label: 'Hành Tinh & Sao Chổi (20)', icon: Globe },
   { id: 'regions', label: 'Vùng Thiên Hà (10)', icon: Compass },
   { id: 'evolution', label: 'Tiến Hóa (13,8 Tỷ Năm)', icon: Clock },
   { id: 'gravity', label: 'Phòng Thí Nghiệm Hấp Dẫn', icon: Atom },

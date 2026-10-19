@@ -8,6 +8,7 @@ import type {
 } from '@/types/simulation';
 import type { CameraControlMode } from '@/types/camera';
 import { GALAXY_REGION_MAP } from '@/data/galaxyRegions';
+import { CELESTIAL_BODY_MAP, SOLAR_ORIGIN_KPC } from '@/data/planetaryBodies';
 import { CAMERA_PRESETS, GUIDED_TOUR_STOPS } from '@/data/cameraPresets';
 import { detectRecommendedQualityTier } from '@/utils/devicePerformance';
 import { createInitialGravityParticles } from '@/simulation/integrators/leapfrog';
@@ -29,6 +30,7 @@ interface GalaxyStoreState {
   hasDismissedHero: boolean;
   activeMode: ActiveObservatoryMode;
   selectedRegionId: string | null;
+  selectedPlanetId: string | null;
   hoveredRegionId: string | null;
 
   cameraControlMode: CameraControlMode;
@@ -66,6 +68,7 @@ interface GalaxyStoreState {
   setDismissedHero: (dismissed: boolean) => void;
   setActiveMode: (mode: ActiveObservatoryMode) => void;
   selectRegion: (regionId: string | null, flyTo?: boolean) => void;
+  selectPlanet: (planetId: string | null) => void;
   setHoveredRegion: (regionId: string | null) => void;
   setCameraControlMode: (mode: CameraControlMode) => void;
   flyToPose: (position: [number, number, number], target: [number, number, number]) => void;
@@ -126,6 +129,7 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
   hasDismissedHero: false,
   activeMode: 'overview',
   selectedRegionId: null,
+  selectedPlanetId: 'earth',
   hoveredRegionId: null,
 
   cameraControlMode: 'orbit',
@@ -163,7 +167,7 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
     shockVelocityKms: 0,
     temperatureMK: 0,
     phase: 'Free Expansion',
-    originPosition: [3.6, 0.0, 5.6], // Sagittarius-Carina star-forming complex by default
+    originPosition: [3.6, 0.0, 5.6],
   },
 
   tour: {
@@ -182,7 +186,21 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
       hasDismissedHero: true,
     };
 
-    if (mode === 'dark-matter') {
+    if (mode === 'planets') {
+      updates.selectedRegionId = null;
+      if (!state.selectedPlanetId) {
+        updates.selectedPlanetId = 'earth';
+      }
+      updates.cameraPose = {
+        position: [
+          SOLAR_ORIGIN_KPC[0] + 0.0,
+          SOLAR_ORIGIN_KPC[1] + 1.45,
+          SOLAR_ORIGIN_KPC[2] + 2.25,
+        ],
+        target: SOLAR_ORIGIN_KPC,
+        transitionId: state.cameraPose.transitionId + 1,
+      };
+    } else if (mode === 'dark-matter') {
       updates.showDarkMatterHalo = true;
       updates.cameraPose = {
         position: [15.5, 14.0, 21.0],
@@ -229,6 +247,33 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
             },
           }
         : {}),
+    });
+  },
+
+  selectPlanet: (planetId) => {
+    if (!planetId) {
+      set({ selectedPlanetId: null });
+      return;
+    }
+    const body = CELESTIAL_BODY_MAP[planetId];
+    if (!body) return;
+
+    const state = get();
+    const [hx, hy, hz] = body.hostStarPosKpc;
+    const viewDist = body.isSolarSystem ? Math.max(0.55, body.orreryRadiusUnits * 1.45 + 0.35) : 0.55;
+
+    set({
+      hasDismissedHero: true,
+      activeMode: 'planets',
+      selectedRegionId: null,
+      selectedPlanetId: planetId,
+      cameraControlMode: 'orbit',
+      tour: { ...state.tour, isActive: false, isPlaying: false },
+      cameraPose: {
+        position: [hx, hy + viewDist * 0.62, hz + viewDist],
+        target: [hx, hy, hz],
+        transitionId: state.cameraPose.transitionId + 1,
+      },
     });
   },
 
@@ -286,18 +331,22 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
   toggleDustLanes: () => set((s) => ({ showDustLanes: !s.showDustLanes })),
 
   locateSun: () => {
-    const solar = GALAXY_REGION_MAP['solar-neighborhood'];
     const state = get();
     set({
       hasDismissedHero: true,
-      activeMode: 'regions',
-      selectedRegionId: 'solar-neighborhood',
+      activeMode: 'planets',
+      selectedRegionId: null,
+      selectedPlanetId: 'earth',
       showSolarBeacon: true,
       cameraControlMode: 'orbit',
       tour: { ...state.tour, isActive: false, isPlaying: false },
       cameraPose: {
-        position: solar.cameraPosition,
-        target: solar.cameraTarget,
+        position: [
+          SOLAR_ORIGIN_KPC[0],
+          SOLAR_ORIGIN_KPC[1] + 1.35,
+          SOLAR_ORIGIN_KPC[2] + 2.1,
+        ],
+        target: SOLAR_ORIGIN_KPC,
         transitionId: state.cameraPose.transitionId + 1,
       },
     });
@@ -421,15 +470,12 @@ export const useGalaxyStore = create<GalaxyStoreState>((set, get) => ({
       return;
     }
 
-    // Analytical Sedov-Taylor scaling: R_s ~ (E / rho)^(1/5) * t^(2/5)
     const energyScale = Math.pow(
       supernova.explosionEnergyFoe / Math.max(0.1, supernova.ambientDensityCm3),
       0.2
     );
     const radiusPc = 48.0 * energyScale * Math.pow(nextProgress, 0.45);
-    const velocityKms = Math.round(
-      9500 * Math.pow(1.0 - nextProgress * 0.88, 2.4) + 65
-    );
+    const velocityKms = Math.round(9500 * Math.pow(1.0 - nextProgress * 0.88, 2.4) + 65);
     const tempMK = Number((90.0 * Math.pow(1.0 - nextProgress * 0.85, 2.1) + 0.5).toFixed(1));
 
     let phase: SupernovaState['phase'] = 'Free Expansion';

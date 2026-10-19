@@ -5,6 +5,7 @@ import { TopBar } from '@/components/ui/TopBar';
 import { ScaleBar } from '@/components/ui/ScaleBar';
 import { RegionSelector } from '@/components/exploration/RegionSelector';
 import { RegionDetailDrawer } from '@/components/exploration/RegionDetailDrawer';
+import { PlanetaryExplorer } from '@/components/exploration/PlanetaryExplorer';
 import { GuidedTourOverlay } from '@/components/exploration/GuidedTourOverlay';
 import { ScientificDataModal } from '@/components/exploration/ScientificDataModal';
 import { EvolutionTimeline } from '@/components/simulation/EvolutionTimeline';
@@ -25,6 +26,7 @@ export function App() {
       <TopBar />
       <RegionSelector />
       <RegionDetailDrawer />
+      <PlanetaryExplorer />
       <GuidedTourOverlay />
 
       {/* Interactive Computational Astrophysics Modules */}
