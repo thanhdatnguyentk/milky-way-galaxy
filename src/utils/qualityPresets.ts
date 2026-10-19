@@ -1,0 +1,48 @@
+import type { QualityPresetConfig, QualityTier } from '@/types/simulation';
+
+export const QUALITY_PRESETS: Record<QualityTier, QualityPresetConfig> = {
+  Low: {
+    tier: 'Low',
+    label: 'Low (65K Stars)',
+    starCount: 65000,
+    dustCloudCount: 3500,
+    hiiRegionCount: 1200,
+    haloStarCount: 4500,
+    pixelRatioMax: 1.25,
+    enableVolumetricGlow: false,
+    description: 'Optimized for integrated graphics and mobile GPUs.',
+  },
+  Medium: {
+    tier: 'Medium',
+    label: 'Medium (180K Stars)',
+    starCount: 180000,
+    dustCloudCount: 8000,
+    hiiRegionCount: 2800,
+    haloStarCount: 10000,
+    pixelRatioMax: 1.5,
+    enableVolumetricGlow: true,
+    description: 'Balanced astrophysical density and 60 FPS fluid motion.',
+  },
+  High: {
+    tier: 'High',
+    label: 'High (420K Stars)',
+    starCount: 420000,
+    dustCloudCount: 15000,
+    hiiRegionCount: 5500,
+    haloStarCount: 22000,
+    pixelRatioMax: 2.0,
+    enableVolumetricGlow: true,
+    description: 'High-density spiral arms, fine dust lanes, and rich bulge structure.',
+  },
+  Ultra: {
+    tier: 'Ultra',
+    label: 'Ultra (850K Stars)',
+    starCount: 850000,
+    dustCloudCount: 24000,
+    hiiRegionCount: 9000,
+    haloStarCount: 40000,
+    pixelRatioMax: 2.0,
+    enableVolumetricGlow: true,
+    description: 'Maximum GPU particle resolution approaching 1M total particles.',
+  },
+};

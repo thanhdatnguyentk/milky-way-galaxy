@@ -1,0 +1,33 @@
+{
+  "name": "milky-way-living-galaxy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "MILKY WAY — A Living Galaxy: Interactive 3D Galactic Universe & Computational Astrophysics Observatory",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.462.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.2",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
+  }
+}
