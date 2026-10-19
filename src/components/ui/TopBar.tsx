@@ -20,13 +20,13 @@ const MODE_ITEMS: {
   label: string;
   icon: React.FC<{ className?: string }>;
 }[] = [
-  { id: 'overview', label: 'Atlas', icon: Orbit },
-  { id: 'regions', label: 'Regions (10)', icon: Compass },
-  { id: 'evolution', label: 'Evolution (13.8 Gyr)', icon: Clock },
-  { id: 'gravity', label: 'Gravity Lab', icon: Atom },
-  { id: 'supernova', label: 'Supernova', icon: Zap },
-  { id: 'dark-matter', label: 'Dark Matter', icon: ShieldAlert },
-  { id: 'data', label: 'Gaia & Data', icon: Database },
+  { id: 'overview', label: 'Bản Đồ 3D', icon: Orbit },
+  { id: 'regions', label: 'Vùng Thiên Hà (10)', icon: Compass },
+  { id: 'evolution', label: 'Tiến Hóa (13,8 Tỷ Năm)', icon: Clock },
+  { id: 'gravity', label: 'Phòng Thí Nghiệm Hấp Dẫn', icon: Atom },
+  { id: 'supernova', label: 'Siêu Tân Tinh', icon: Zap },
+  { id: 'dark-matter', label: 'Vật Chất Tối', icon: ShieldAlert },
+  { id: 'data', label: 'Dữ Liệu Gaia', icon: Database },
 ];
 
 export const TopBar: React.FC = () => {
@@ -56,17 +56,17 @@ export const TopBar: React.FC = () => {
           type="button"
           onClick={() => setDismissedHero(false)}
           className="flex items-center gap-2.5 text-left group"
-          title="Show Observatory Intro"
+          title="Mở màn hình giới thiệu Đài Quan Sát"
         >
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7AA8FF]/15 border border-[#7AA8FF]/35 text-[#7AA8FF] group-hover:scale-105 transition">
             <Orbit className="h-3.5 w-3.5" />
           </span>
           <div>
             <div className="font-display text-xs font-semibold tracking-wider text-[#F4F7FB]">
-              MILKY WAY
+              DẢI NGÂN HÀ
             </div>
             <div className="font-mono text-[9px] uppercase tracking-widest text-[#94A3B8]">
-              Digital Observatory
+              Đài Quan Sát Số
             </div>
           </div>
         </button>
@@ -79,20 +79,20 @@ export const TopBar: React.FC = () => {
             type="button"
             onClick={locateSun}
             className="flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300 hover:bg-emerald-500/20 transition"
-            title="Fly to the Solar Neighborhood (~8.178 kpc from Center)"
+            title="Bay tới Vùng Lân Cận Mặt Trời (~8,178 kpc từ Tâm Ngân Hà)"
           >
             <Sun className="h-3 w-3" />
-            <span>Where Are We?</span>
+            <span>Mặt Trời Ở Đâu?</span>
           </button>
 
           <button
             type="button"
             onClick={exploreGalacticCenter}
             className="flex items-center gap-1 rounded-full border border-[#F8C98B]/30 bg-[#F8C98B]/10 px-2.5 py-1 text-[11px] font-medium text-[#F8C98B] hover:bg-[#F8C98B]/20 transition"
-            title="Approach Sagittarius A* in the Galactic Core"
+            title="Tiếp cận Hố đen Sagittarius A* tại Lõi Thiên Hà"
           >
             <Orbit className="h-3 w-3" />
-            <span>Sgr A* Core</span>
+            <span>Lõi Sgr A*</span>
           </button>
 
           <button
@@ -105,7 +105,7 @@ export const TopBar: React.FC = () => {
             }`}
           >
             <Play className="h-3 w-3" />
-            <span>Guided Tour</span>
+            <span>Tour Tự Động</span>
           </button>
         </div>
       </div>
@@ -137,16 +137,16 @@ export const TopBar: React.FC = () => {
       <div className="pointer-events-auto hidden xl:flex items-center gap-3 rounded-full border border-white/[0.08] bg-[#090D18]/80 px-3.5 py-1.5 backdrop-blur-xl font-mono text-[11px]">
         <div className="flex items-center gap-1.5 text-[#94A3B8]">
           <Sliders className="h-3 w-3 text-[#7AA8FF]" />
-          <span>GPU Preset:</span>
+          <span>Chất lượng GPU:</span>
           <select
-            aria-label="GPU Particle Quality Tier"
+            aria-label="Mức chất lượng hạt GPU"
             value={qualityTier}
             onChange={(e) => setQualityTier(e.target.value as QualityTier)}
             className="bg-transparent font-semibold text-[#F4F7FB] focus:outline-none cursor-pointer"
           >
             {(['Low', 'Medium', 'High', 'Ultra'] as QualityTier[]).map((tier) => (
               <option key={tier} value={tier} className="bg-[#090D18] text-[#F4F7FB]">
-                {tier} ({Math.round(QUALITY_PRESETS[tier].starCount / 1000)}k)
+                {tier} ({Math.round(QUALITY_PRESETS[tier].starCount / 1000)}k sao)
               </option>
             ))}
           </select>
@@ -155,7 +155,7 @@ export const TopBar: React.FC = () => {
         <span className="text-white/15">|</span>
 
         <div className="text-[#94A3B8]">
-          Particles: <span className="text-[#67E8F9]">{(totalParticles / 1000).toFixed(0)}K</span>
+          Tổng hạt: <span className="text-[#67E8F9]">{(totalParticles / 1000).toFixed(0)}K</span>
         </div>
 
         <span className="text-white/15">|</span>

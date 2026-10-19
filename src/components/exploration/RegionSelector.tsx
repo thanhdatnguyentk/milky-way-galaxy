@@ -4,6 +4,13 @@ import { Compass, ChevronRight, MapPin } from 'lucide-react';
 import { useGalaxyStore } from '@/store/useGalaxyStore';
 import { GALAXY_REGIONS } from '@/data/galaxyRegions';
 
+const CATEGORY_VI: Record<string, string> = {
+  'Galactic Core': 'Lõi Thiên Hà',
+  'Spiral Structure': 'Cấu Trúc Xoắn Ốc',
+  'Local Universe': 'Vũ Trụ Cục Bộ',
+  'Outer Structure': 'Cấu Trúc Rìa & Quầng',
+};
+
 export const RegionSelector: React.FC = () => {
   const hasDismissedHero = useGalaxyStore((s) => s.hasDismissedHero);
   const activeMode = useGalaxyStore((s) => s.activeMode);
@@ -20,16 +27,16 @@ export const RegionSelector: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.25 }}
-          className="pointer-events-auto fixed left-3 top-20 z-20 hidden lg:flex w-72 flex-col rounded-2xl border border-white/[0.08] bg-[#090D18]/78 p-3.5 backdrop-blur-xl max-h-[calc(100vh-150px)] overflow-y-auto"
+          className="pointer-events-auto fixed left-3 top-20 z-20 hidden lg:flex w-76 flex-col rounded-2xl border border-white/[0.08] bg-[#090D18]/78 p-3.5 backdrop-blur-xl max-h-[calc(100vh-150px)] overflow-y-auto"
         >
           <div className="mb-2.5 flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
               <Compass className="h-4 w-4 text-[#7AA8FF]" />
               <h2 className="font-display text-xs font-semibold uppercase tracking-wider text-[#F4F7FB]">
-                Galactic Atlas (10 Regions)
+                Bản Đồ Ngân Hà (10 Vùng)
               </h2>
             </div>
-            <span className="font-mono text-[10px] text-[#64748B]">R_gal (kpc)</span>
+            <span className="font-mono text-[10px] text-[#64748B]">R_tâm (kpc)</span>
           </div>
 
           <div className="space-y-1">
@@ -56,7 +63,9 @@ export const RegionSelector: React.FC = () => {
                     />
                     <div className="truncate">
                       <div className="truncate text-xs font-medium">{region.name}</div>
-                      <div className="truncate text-[10px] text-[#64748B]">{region.category}</div>
+                      <div className="truncate text-[10px] text-[#64748B]">
+                        {CATEGORY_VI[region.category] ?? region.category}
+                      </div>
                     </div>
                   </div>
 
@@ -77,7 +86,7 @@ export const RegionSelector: React.FC = () => {
 
           <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center gap-2 px-1 text-[10px] text-[#64748B]">
             <MapPin className="h-3 w-3 text-[#7AA8FF] shrink-0" />
-            <span>Click any 3D marker or atlas item to engage orbital approach.</span>
+            <span>Nhấp vào điểm đánh dấu 3D hoặc danh sách để bay tới vùng đó.</span>
           </div>
         </motion.aside>
       )}

@@ -3,9 +3,9 @@ export const PC_TO_LIGHT_YEARS = 3.261563777;
 export const SUN_GALACTOCENTRIC_DISTANCE_KPC = 8.178; // GRAVITY Collaboration (2019)
 export const SUN_GALACTOCENTRIC_DISTANCE_LY = Math.round(
   SUN_GALACTOCENTRIC_DISTANCE_KPC * KPC_TO_LIGHT_YEARS
-); // ~26,673 ly
-export const MILKY_WAY_DIAMETER_KPC = 32.0; // Stellar disk ~30-32 kpc (~105,000 ly)
-export const LOCAL_CIRCULAR_VELOCITY_KMS = 232.8; // km/s at R_0
+); // ~26,673 năm ánh sáng
+export const MILKY_WAY_DIAMETER_KPC = 32.0; // Đĩa sao ~30-32 kpc (~105,000 năm ánh sáng)
+export const LOCAL_CIRCULAR_VELOCITY_KMS = 232.8; // km/s tại R_0
 
 export function kpcToLy(kpc: number): number {
   return kpc * KPC_TO_LIGHT_YEARS;
@@ -15,10 +15,10 @@ export function formatDistanceKpcAndLy(kpc: number): string {
   if (kpc < 0.01) {
     const pc = kpc * 1000;
     const ly = pc * PC_TO_LIGHT_YEARS;
-    return `${pc.toFixed(1)} pc (${ly.toFixed(1)} ly)`;
+    return `${pc.toFixed(1)} pc (${ly.toFixed(1)} năm ánh sáng)`;
   }
   const ly = kpc * KPC_TO_LIGHT_YEARS;
-  return `${kpc.toFixed(2)} kpc (${Math.round(ly).toLocaleString()} ly)`;
+  return `${kpc.toFixed(2)} kpc (${Math.round(ly).toLocaleString()} năm ánh sáng)`;
 }
 
 export function getScaleViewLabel(cameraDistanceKpc: number): {
@@ -28,35 +28,35 @@ export function getScaleViewLabel(cameraDistanceKpc: number): {
 } {
   if (cameraDistanceKpc > 36) {
     return {
-      level: 'Intergalactic Overview',
+      level: 'Toàn Cảnh Liên Thiên Hà',
       scaleBarKpc: 10,
-      scaleBarLy: '32,600 ly',
+      scaleBarLy: '32.600 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 16) {
     return {
-      level: 'Full Galactic Disk',
+      level: 'Toàn Bộ Đĩa Ngân Hà',
       scaleBarKpc: 5,
-      scaleBarLy: '16,300 ly',
+      scaleBarLy: '16.300 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 6) {
     return {
-      level: 'Spiral Arm Sector',
+      level: 'Phân Khu Nhánh Xoắn Ốc',
       scaleBarKpc: 2,
-      scaleBarLy: '6,520 ly',
+      scaleBarLy: '6.520 năm ánh sáng',
     };
   }
   if (cameraDistanceKpc > 1.8) {
     return {
-      level: 'Stellar Neighborhood',
+      level: 'Vùng Lân Cận Sao Cục Bộ',
       scaleBarKpc: 0.5,
-      scaleBarLy: '1,630 ly',
+      scaleBarLy: '1.630 năm ánh sáng',
     };
   }
   return {
-    level: 'Sub-Parsec / Core Detail',
+    level: 'Cận Cảnh Lõi Thiên Hà (Sub-Parsec)',
     scaleBarKpc: 0.1,
-    scaleBarLy: '326 ly',
+    scaleBarLy: '326 năm ánh sáng',
   };
 }

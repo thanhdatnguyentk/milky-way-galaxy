@@ -39,7 +39,6 @@ export const ScaleBar: React.FC = () => {
             {scaleInfo.level}
           </div>
           <div className="mt-1 flex items-center gap-2.5">
-            {/* Visual Calibrated Scale Ruler */}
             <div className="flex flex-col items-center">
               <div className="h-1.5 w-20 border-b border-l border-r border-[#67E8F9]/80" />
             </div>
@@ -56,13 +55,13 @@ export const ScaleBar: React.FC = () => {
         {/* Camera Distance & Speed Control */}
         <div className="hidden sm:flex items-center gap-3 font-mono text-[11px]">
           <div>
-            <span className="text-[#64748B] block text-[9px] uppercase">Cam Range</span>
+            <span className="text-[#64748B] block text-[9px] uppercase">Cự ly Camera</span>
             <span className="text-[#F4F7FB]">{cameraDistanceKpc.toFixed(2)} kpc</span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <Gauge className="h-3.5 w-3.5 text-[#7AA8FF]" />
-            <span className="text-[#94A3B8] text-[10px]">Ω Speed:</span>
+            <span className="text-[#94A3B8] text-[10px]">Tốc độ quay Ω:</span>
             <input
               type="range"
               min={0}
@@ -71,7 +70,7 @@ export const ScaleBar: React.FC = () => {
               value={rotationSpeedMultiplier}
               onChange={(e) => setRotationSpeedMultiplier(parseFloat(e.target.value))}
               className="w-16 accent-[#7AA8FF] cursor-pointer"
-              title="Galactic Differential Rotation Speed Multiplier"
+              title="Hệ số nhân tốc độ quay vi sai của thiên hà"
             />
             <span className="text-[#F4F7FB] w-7">{rotationSpeedMultiplier.toFixed(1)}×</span>
           </div>
@@ -84,7 +83,7 @@ export const ScaleBar: React.FC = () => {
         <div className="flex items-center gap-1.5 px-2 py-1 text-xs text-[#94A3B8]">
           <Camera className="h-3.5 w-3.5 text-[#7AA8FF]" />
           <select
-            aria-label="Camera Viewpoint Preset"
+            aria-label="Góc nhìn Camera"
             onChange={(e) => {
               if (e.target.value) applyCameraPreset(e.target.value);
             }}
@@ -92,7 +91,7 @@ export const ScaleBar: React.FC = () => {
             className="bg-transparent text-xs font-medium text-[#F4F7FB] focus:outline-none cursor-pointer"
           >
             <option value="" disabled className="bg-[#090D18] text-[#94A3B8]">
-              Viewpoints...
+              Góc nhìn nhanh...
             </option>
             {CAMERA_PRESETS.map((preset) => (
               <option key={preset.id} value={preset.id} className="bg-[#090D18] text-[#F4F7FB]">
@@ -115,10 +114,10 @@ export const ScaleBar: React.FC = () => {
               ? 'bg-[#7AA8FF]/20 text-[#7AA8FF] border border-[#7AA8FF]/40'
               : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
           }`}
-          title="Toggle between Spherical Orbit and WASD Free-Flight Mode"
+          title="Chuyển đổi giữa Chế độ Xoay Quỹ Đạo và Chế độ Bay Tự Do (WASD)"
         >
           <Navigation className="h-3 w-3" />
-          <span>{cameraControlMode === 'free-flight' ? 'Free-Flight (WASD)' : 'Orbit Mode'}</span>
+          <span>{cameraControlMode === 'free-flight' ? 'Bay Tự Do (WASD)' : 'Xoay Quỹ Đạo'}</span>
         </button>
 
         {/* Toggle 3D Region Pins */}
@@ -130,10 +129,10 @@ export const ScaleBar: React.FC = () => {
               ? 'text-[#F4F7FB] bg-white/10'
               : 'text-[#64748B] hover:text-[#94A3B8]'
           }`}
-          title="Toggle 3D Region Markers"
+          title="Bật/Tắt nhãn địa danh 3D"
         >
           {showRegionMarkers ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
-          <span className="hidden sm:inline">Labels</span>
+          <span className="hidden sm:inline">Nhãn 3D</span>
         </button>
 
         {/* Toggle Dust & Nebulae */}
@@ -143,10 +142,10 @@ export const ScaleBar: React.FC = () => {
           className={`flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-medium transition ${
             showDustLanes ? 'text-[#67E8F9] bg-[#67E8F9]/10' : 'text-[#64748B] hover:text-[#94A3B8]'
           }`}
-          title="Toggle Interstellar Dust Lanes & HII Nebulae"
+          title="Bật/Tắt dải bụi liên sao & tinh vân HII"
         >
           <Sparkles className="h-3 w-3" />
-          <span className="hidden sm:inline">Nebulae</span>
+          <span className="hidden sm:inline">Tinh Vân</span>
         </button>
 
         {/* Reset Overview */}
@@ -154,10 +153,10 @@ export const ScaleBar: React.FC = () => {
           type="button"
           onClick={resetCameraOverview}
           className="flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-medium text-[#94A3B8] hover:text-white hover:bg-white/10 transition"
-          title="Reset Camera to Full Milky Way Overview"
+          title="Đặt lại góc nhìn toàn cảnh Dải Ngân Hà"
         >
           <RotateCcw className="h-3 w-3" />
-          <span className="hidden sm:inline">Reset</span>
+          <span className="hidden sm:inline">Đặt Lại</span>
         </button>
       </div>
     </div>

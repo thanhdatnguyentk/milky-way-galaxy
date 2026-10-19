@@ -841,7 +841,7 @@ export const GalaxyCanvas: React.FC = () => {
                   <span>{marker.name}</span>
                   {isSolar && (
                     <span className="font-mono text-[9px] uppercase text-emerald-300">
-                      YOU ARE HERE
+                      BẠN ĐANG Ở ĐÂY
                     </span>
                   )}
                 </span>

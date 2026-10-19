@@ -7,10 +7,10 @@ import { EVOLUTION_STAGES, SCIENCE_SOURCES } from '@/data/scienceSources';
 
 export class ProceduralSimulationProvider implements SimulationProvider {
   readonly id = 'procedural-milky-way';
-  readonly name = 'Parametric 4-Arm Logarithmic Spiral + Box/Peanut Bar';
+  readonly name = 'Mô Hình Tham Số Xoắn Ốc Logarit 4 Nhánh + Thanh Ba Trục';
   readonly provenance = 'Procedural Model' as const;
   readonly description =
-    'GPU-evaluated logarithmic spiral density waves, triaxial stellar bar, and differential rotation curve.';
+    'Tính toán trên GPU sóng mật độ xoắn ốc logarit, thanh sao dạng hộp/đậu phộng và đường cong quay vi sai.';
 
   getMetadata(): SimulationMetadata {
     return SCIENCE_SOURCES[3];
@@ -34,25 +34,25 @@ export class ProceduralSimulationProvider implements SimulationProvider {
 
 export class LocalPhysicsSimulationProvider implements SimulationProvider {
   readonly id = 'local-leapfrog-integrator';
-  readonly name = 'Browser Symplectic Leapfrog / Sedov-Taylor Solver';
+  readonly name = 'Bộ Giải Số Symplectic Leapfrog / Sedov-Taylor Trên Trình Duyệt';
   readonly provenance = 'Simplified Physics Demo' as const;
   readonly description =
-    'Real-time Velocity Verlet orbital mechanics in a Miyamoto-Nagai + NFW gravitational potential and analytical Sedov-Taylor supernova blast expansion.';
+    'Tích phân quỹ đạo Velocity Verlet thời gian thực trong thế hấp dẫn Miyamoto-Nagai + NFW và nghiệm giải tích sóng xung kích siêu tân tinh Sedov-Taylor.';
 
   getMetadata(): SimulationMetadata {
     return {
       id: 'local-browser-physics',
-      name: 'Symplectic Leapfrog & Sedov-Taylor Browser Solver',
+      name: 'Bộ Giải Số Symplectic Leapfrog & Sedov-Taylor Cục Bộ',
       category: 'Simplified Physics Demo',
-      institutionOrSource: 'Local Web Worker & WebGL2 GPU Pipeline',
+      institutionOrSource: 'Web Worker & Đường Ống WebGL2 GPU Trình Duyệt',
       publicationYear: 2025,
-      spatialResolution: 'Softened 0.15 kpc orbital test particles',
-      baryonicMassResolution: 'Test-particle dynamics in analytic galactic potential',
-      cosmologyModel: 'Miyamoto-Nagai Disk + NFW Halo + Central Point Mass',
+      spatialResolution: 'Hạt thử nghiệm quỹ đạo làm mềm hấp dẫn 0,15 kpc',
+      baryonicMassResolution: 'Động lực học hạt thử trong thế hấp dẫn giải tích của thiên hà',
+      cosmologyModel: 'Đĩa Miyamoto-Nagai + Quầng NFW + Khối Lượng Điểm Trung Tâm',
       summary:
-        'Computes real-time orbital trajectories and supernova shock radii directly in the browser without claiming full cosmological hydrodynamics.',
+        'Tính toán quỹ đạo sao và bán kính sóng xung kích siêu tân tinh trực tiếp trên trình duyệt theo thời gian thực.',
       fidelityNote:
-        'Explicitly scoped as an interactive educational physics laboratory.',
+        'Được phân định rõ ràng là phòng thí nghiệm vật lý tương tác giáo dục trên trình duyệt.',
       referenceUrl: 'https://en.wikipedia.org/wiki/Leapfrog_integration',
     };
   }
@@ -61,7 +61,7 @@ export class LocalPhysicsSimulationProvider implements SimulationProvider {
     return {
       timestampGyr: cosmicTimeGyr,
       activeStageId: 'secular-evolution',
-      totalStellarMassSolar: '6.0 × 10¹⁰ M☉',
+      totalStellarMassSolar: '6,0 × 10¹⁰ M☉',
       starFormationRate: 1.65,
       rotationSpeedAtSunKms: 232.8,
     };
@@ -70,10 +70,10 @@ export class LocalPhysicsSimulationProvider implements SimulationProvider {
 
 export class PrecomputedDatasetProvider implements SimulationProvider {
   readonly id = 'precomputed-illustristng-gaia';
-  readonly name = 'ESA Gaia DR3 & IllustrisTNG50 Reference Adapter';
+  readonly name = 'Bộ Chuyển Đổi Dữ Liệu ESA Gaia DR3 & IllustrisTNG50';
   readonly provenance = 'Scientific Simulation Data' as const;
   readonly description =
-    'Precomputed cosmological zoom-in evolution checkpoints (TNG50) paired with ESA Gaia DR3 astrometric anchors.';
+    'Các mốc tiến hóa mô phỏng vũ trụ học tính sẵn (TNG50) kết hợp cùng mốc đo lường thiên văn ESA Gaia DR3.';
 
   getMetadata(): SimulationMetadata {
     return SCIENCE_SOURCES[2];
@@ -86,7 +86,7 @@ export class PrecomputedDatasetProvider implements SimulationProvider {
     return {
       timestampGyr: stage.cosmicTimeGyr,
       activeStageId: stage.id,
-      totalStellarMassSolar: '5.8 × 10¹⁰ M☉',
+      totalStellarMassSolar: '5,8 × 10¹⁰ M☉',
       starFormationRate: stage.parameters.starFormationRateSolarYr,
       rotationSpeedAtSunKms: 232.8,
     };
@@ -95,25 +95,25 @@ export class PrecomputedDatasetProvider implements SimulationProvider {
 
 export class FutureAISurrogateProvider implements SimulationProvider {
   readonly id = 'future-ai-neural-surrogate';
-  readonly name = 'Neural Operator / AI Cosmological Surrogate Interface';
+  readonly name = 'Giao Diện Mô Hình Thay Thế AI / Neural Operator Vũ Trụ Học';
   readonly provenance = 'Scientific Simulation Data' as const;
   readonly description =
-    'Extensible interface designed for neural field / diffusion surrogate emulators of sub-grid supernova feedback and N-body phase-space interpolation.';
+    'Giao diện mở rộng cho phép kết nối các mô hình học sâu (Neural Operator / Diffusion Emulator) nội suy phản hồi siêu tân tinh và không gian pha N-body.';
 
   getMetadata(): SimulationMetadata {
     return {
       id: 'ai-surrogate-architecture',
-      name: 'AI / HPC Cosmological Surrogate Adapter (Extensible Interface)',
+      name: 'Adapter Mô Hình Thay Thế AI / HPC (Giao Diện Mở Rộng)',
       category: 'Scientific Simulation Data',
-      institutionOrSource: 'Computational Astrophysics Neural Emulator Spec',
+      institutionOrSource: 'Đặc Tả Trình Giả Lập Thần Kinh Vật Lý Thiên Văn Tính Toán',
       publicationYear: 2025,
-      spatialResolution: 'Sub-parsec neural super-resolution adapter',
-      baryonicMassResolution: 'Emulator-ready tensor state interface',
-      cosmologyModel: 'Hybrid HPC + Neural Sub-Grid Feedback',
+      spatialResolution: 'Adapter siêu phân giải thần kinh quy mô dưới parsec',
+      baryonicMassResolution: 'Giao diện trạng thái tensor sẵn sàng cho AI Emulator',
+      cosmologyModel: 'Lai Ghép HPC + Phản Hồi Dưới Lưới Bằng Mạng Thần Kinh',
       summary:
-        'Architecture hook enabling pre-trained neural operators to stream baryonic density and supernova feedback states into WebGL/WebGPU buffers.',
+        'Kiến trúc mở cho phép truyền trực tiếp các trạng thái mật độ baryon và phản hồi siêu tân tinh từ mô hình AI đã huấn luyện vào bộ đệm WebGL/WebGPU.',
       fidelityNote:
-        'Cleanly decoupled SimulationProvider contract for connecting external AI surrogate checkpoints.',
+        'Hợp đồng giao diện SimulationProvider tách biệt hoàn toàn tầng hiển thị và tầng dữ liệu mô phỏng.',
       referenceUrl: 'https://www.tng-project.org/',
     };
   }
@@ -122,7 +122,7 @@ export class FutureAISurrogateProvider implements SimulationProvider {
     return {
       timestampGyr: cosmicTimeGyr,
       activeStageId: 'secular-evolution',
-      totalStellarMassSolar: '6.0 × 10¹⁰ M☉',
+      totalStellarMassSolar: '6,0 × 10¹⁰ M☉',
       starFormationRate: 1.65,
       rotationSpeedAtSunKms: 232.8,
     };

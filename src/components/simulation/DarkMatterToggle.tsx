@@ -31,10 +31,10 @@ export const DarkMatterToggle: React.FC = () => {
               <ScienceBadge type="Scientific Simulation Data" size="sm" />
             </div>
             <h2 className="font-display text-lg font-semibold text-[#F4F7FB]">
-              Navarro-Frenk-White (NFW) Dark Matter Halo
+              Quầng Vật Chất Tối Navarro-Frenk-White (NFW)
             </h2>
             <p className="text-xs text-[#94A3B8]">
-              Gravitational Scaffolding & Flat Rotation Curve Analysis
+              Khung Xương Hấp Dẫn & Phân Tích Đường Cong Quay Phẳng
             </p>
           </div>
 
@@ -48,16 +48,17 @@ export const DarkMatterToggle: React.FC = () => {
         </div>
 
         <p className="mt-3 text-xs leading-relaxed text-[#94A3B8]">
-          Visible stars, gas, and dust account for only ~5–6% of the Milky Way’s total mass. The
-          luminous spiral disk is embedded inside a vast spherical/oblate{' '}
-          <strong className="text-[#A78BFA]">NFW Dark Matter Halo</strong> (M₂₀₀ ≈ 1.15 × 10¹² M☉).
+          Các ngôi sao phát sáng, khí và bụi chỉ chiếm khoảng ~5–6% tổng khối lượng của Dải Ngân Hà.
+          Toàn bộ đĩa xoắn ốc nằm gọn bên trong một{' '}
+          <strong className="text-[#A78BFA]">Quầng Vật Chất Tối NFW</strong> khổng lồ (M₂₀₀ ≈ 1,15 ×
+          10¹² M☉).
         </p>
 
         {/* Toggle 3D Volumetric Halo Envelope & Opacity */}
         <div className="mt-4 rounded-xl border border-[#A78BFA]/30 bg-[#A78BFA]/10 p-3.5 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-[#F4F7FB]">
-              3D NFW Halo Volumetric Envelope
+              Lớp Quầng Vật Chất Tối NFW 3D
             </span>
             <button
               type="button"
@@ -69,13 +70,13 @@ export const DarkMatterToggle: React.FC = () => {
               }`}
             >
               {showDarkMatterHalo ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
-              <span>{showDarkMatterHalo ? 'Visible' : 'Hidden'}</span>
+              <span>{showDarkMatterHalo ? 'Đang Bật' : 'Đang Tắt'}</span>
             </button>
           </div>
 
           <div>
             <div className="flex justify-between font-mono text-[11px] text-[#94A3B8]">
-              <span>Halo Envelope Intensity</span>
+              <span>Độ Đậm Đặc Quầng Hiển Thị</span>
               <span className="text-[#A78BFA]">{Math.round(darkMatterOpacity * 100)}%</span>
             </div>
             <input
@@ -94,14 +95,14 @@ export const DarkMatterToggle: React.FC = () => {
         <div className="mt-4 rounded-xl border border-white/[0.08] bg-[#101725]/80 p-3.5">
           <div className="flex items-center justify-between mb-2">
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#F4F7FB]">
-              Rotation Curve V_c(R) [0 – 25 kpc]
+              Đường Cong Quay V_c(R) [0 – 25 kpc]
             </span>
             <button
               type="button"
               onClick={() => setIncludeDarkMatterInCurve(!includeDarkMatterInCurve)}
               className="font-mono text-[10px] text-[#67E8F9] hover:underline"
             >
-              {includeDarkMatterInCurve ? 'Showing: Observed + NFW' : 'Showing: Baryons Only'}
+              {includeDarkMatterInCurve ? 'Chế độ: Có Vật Chất Tối NFW' : 'Chế độ: Chỉ Sao & Khí'}
             </button>
           </div>
 
@@ -125,8 +126,8 @@ export const DarkMatterToggle: React.FC = () => {
             <text x="30" y="124" fill="#64748B" fontSize="8" fontFamily="monospace">
               0 kpc
             </text>
-            <text x="105" y="124" fill="#34D399" fontSize="8" fontFamily="monospace">
-              R₀=8.2
+            <text x="100" y="124" fill="#34D399" fontSize="8" fontFamily="monospace">
+              Mặt Trời (8,2)
             </text>
             <text x="255" y="124" fill="#64748B" fontSize="8" fontFamily="monospace">
               25 kpc
@@ -144,7 +145,7 @@ export const DarkMatterToggle: React.FC = () => {
               opacity="0.6"
             />
 
-            {/* Keplerian Baryonic Disk-Only Curve (Drops off as R^-1/2) */}
+            {/* Keplerian Baryonic Disk-Only Curve */}
             <path
               d="M 30 110 Q 55 24, 90 42 T 180 72 T 280 88"
               fill="none"
@@ -180,13 +181,13 @@ export const DarkMatterToggle: React.FC = () => {
 
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px]">
             <span className="flex items-center gap-1 text-[#67E8F9]">
-              <span className="h-2 w-2 rounded-full bg-[#67E8F9]" /> Total Flat Curve (~233 km/s)
+              <span className="h-2 w-2 rounded-full bg-[#67E8F9]" /> Đường cong phẳng (~233 km/s)
             </span>
             <span className="flex items-center gap-1 text-[#F8C98B]">
-              <span className="h-2 w-2 rounded-full bg-[#F8C98B]" /> Stars + Gas Only
+              <span className="h-2 w-2 rounded-full bg-[#F8C98B]" /> Chỉ Sao + Khí
             </span>
             <span className="flex items-center gap-1 text-[#A78BFA]">
-              <span className="h-2 w-2 rounded-full bg-[#A78BFA]" /> NFW Halo
+              <span className="h-2 w-2 rounded-full bg-[#A78BFA]" /> Quầng Vật Chất Tối
             </span>
           </div>
         </div>
@@ -194,12 +195,12 @@ export const DarkMatterToggle: React.FC = () => {
         {/* Mass Budget Breakdown */}
         <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-xs">
           <div className="rounded-xl border border-white/[0.06] bg-[#101725]/70 p-2.5">
-            <div className="text-[10px] text-[#64748B]">Baryonic Mass (Stars+Gas)</div>
-            <div className="mt-0.5 font-semibold text-[#F8C98B]">~6.8 × 10¹⁰ M☉ (5.9%)</div>
+            <div className="text-[10px] text-[#64748B]">Vật chất thông thường (Sao+Khí)</div>
+            <div className="mt-0.5 font-semibold text-[#F8C98B]">~6,8 × 10¹⁰ M☉ (5,9%)</div>
           </div>
           <div className="rounded-xl border border-white/[0.06] bg-[#101725]/70 p-2.5">
-            <div className="text-[10px] text-[#64748B]">Dark Matter Halo (M₂₀₀)</div>
-            <div className="mt-0.5 font-semibold text-[#A78BFA]">~1.08 × 10¹² M☉ (94.1%)</div>
+            <div className="text-[10px] text-[#64748B]">Quầng Vật Chất Tối (M₂₀₀)</div>
+            <div className="mt-0.5 font-semibold text-[#A78BFA]">~1,08 × 10¹² M☉ (94,1%)</div>
           </div>
         </div>
       </motion.aside>

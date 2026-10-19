@@ -51,8 +51,7 @@ export const GuidedTourOverlay: React.FC = () => {
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#67E8F9]">
                 <Compass className="h-3.5 w-3.5" />
                 <span>
-                  JOURNEY THROUGH THE MILKY WAY · STOP {stop.stepNumber} OF{' '}
-                  {GUIDED_TOUR_STOPS.length}
+                  HÀNH TRÌNH XUYÊN NGÂN HÀ · CHẶNG {stop.stepNumber} / {GUIDED_TOUR_STOPS.length}
                 </span>
                 <span className="text-white/25">|</span>
                 <span className="text-[#94A3B8]">{stop.scaleLabel}</span>
@@ -67,7 +66,7 @@ export const GuidedTourOverlay: React.FC = () => {
               type="button"
               onClick={exitGuidedTour}
               className="rounded-full p-1.5 text-[#94A3B8] hover:bg-white/10 hover:text-white transition"
-              title="Exit Guided Tour"
+              title="Thoát hành trình thuyết minh"
             >
               <X className="h-4 w-4" />
             </button>
@@ -78,7 +77,7 @@ export const GuidedTourOverlay: React.FC = () => {
           </p>
 
           <div className="mt-3 rounded-xl border border-white/[0.08] bg-[#101725]/80 px-3 py-2 font-mono text-[11px] text-[#94A3B8]">
-            <strong className="text-[#F8C98B]">Astrophysical Note: </strong>
+            <strong className="text-[#F8C98B]">Ghi chú Vật lý Thiên văn: </strong>
             {stop.scientificCallout}
           </div>
 
@@ -91,7 +90,7 @@ export const GuidedTourOverlay: React.FC = () => {
                 className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-[#F4F7FB] hover:bg-white/10 transition"
               >
                 <SkipBack className="h-3.5 w-3.5" />
-                <span>Previous</span>
+                <span>Chặng Trước</span>
               </button>
 
               <button
@@ -102,12 +101,12 @@ export const GuidedTourOverlay: React.FC = () => {
                 {tour.isPlaying ? (
                   <>
                     <Pause className="h-3.5 w-3.5" />
-                    <span>Pause Tour</span>
+                    <span>Tạm Dừng</span>
                   </>
                 ) : (
                   <>
                     <Play className="h-3.5 w-3.5" />
-                    <span>Resume Tour</span>
+                    <span>Tiếp Tục</span>
                   </>
                 )}
               </button>
@@ -117,7 +116,7 @@ export const GuidedTourOverlay: React.FC = () => {
                 onClick={nextTourStop}
                 className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-[#F4F7FB] hover:bg-white/10 transition"
               >
-                <span>Next Stop</span>
+                <span>Chặng Tiếp</span>
                 <SkipForward className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -127,7 +126,7 @@ export const GuidedTourOverlay: React.FC = () => {
               onClick={exitGuidedTour}
               className="font-mono text-[11px] text-[#94A3B8] hover:text-white transition"
             >
-              Exit Autopilot
+              Thoát Tour Tự Động
             </button>
           </div>
         </motion.div>

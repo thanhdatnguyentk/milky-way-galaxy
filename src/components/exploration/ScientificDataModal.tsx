@@ -28,11 +28,11 @@ export const ScientificDataModal: React.FC = () => {
             <div className="flex items-center gap-2">
               <Database className="h-4 w-4 text-[#67E8F9]" />
               <span className="font-mono text-[10px] uppercase tracking-widest text-[#67E8F9]">
-                Scientific Data & Architecture Explorer
+                Trình Duyệt Dữ Liệu Khoa Học & Kiến Trúc Mô Phỏng
               </span>
             </div>
             <h2 className="mt-1 font-display text-lg font-semibold text-[#F4F7FB]">
-              Observational Catalogs & Simulation Providers
+              Danh Mục Thiên Văn Thực Nghiệm & Nguồn Dữ Liệu
             </h2>
           </div>
 
@@ -56,7 +56,7 @@ export const ScientificDataModal: React.FC = () => {
                 : 'text-[#94A3B8] hover:text-white'
             }`}
           >
-            ESA Gaia DR3 Stars (8)
+            Sao Chuẩn ESA Gaia DR3 (8)
           </button>
           <button
             type="button"
@@ -67,7 +67,7 @@ export const ScientificDataModal: React.FC = () => {
                 : 'text-[#94A3B8] hover:text-white'
             }`}
           >
-            Datasets & Provenance
+            Nguồn Dữ Liệu Khoa Học
           </button>
           <button
             type="button"
@@ -78,7 +78,7 @@ export const ScientificDataModal: React.FC = () => {
                 : 'text-[#94A3B8] hover:text-white'
             }`}
           >
-            Provider Adapters (4)
+            Adapter Mô Phỏng (4)
           </button>
         </div>
 
@@ -87,7 +87,7 @@ export const ScientificDataModal: React.FC = () => {
           {activeTab === 'gaia' && (
             <>
               <div className="flex items-center justify-between px-1 text-[11px] text-[#94A3B8]">
-                <span>Real astrometric benchmark stars anchored to Galactocentric frame:</span>
+                <span>Các ngôi sao chuẩn thiên văn gắn trong hệ tọa độ Tâm Ngân Hà:</span>
                 <ScienceBadge type="Observational Data" size="sm" />
               </div>
 
@@ -102,7 +102,7 @@ export const ScientificDataModal: React.FC = () => {
                         {star.commonName}
                       </div>
                       <div className="font-mono text-[10px] text-[#7AA8FF]">
-                        {star.designation} · Class {star.spectralType}
+                        {star.designation} · Phổ {star.spectralType}
                       </div>
                     </div>
 
@@ -115,7 +115,7 @@ export const ScientificDataModal: React.FC = () => {
                       className="flex items-center gap-1 rounded-lg border border-[#67E8F9]/30 bg-[#67E8F9]/10 px-2.5 py-1 font-mono text-[10px] text-[#67E8F9] hover:bg-[#67E8F9]/20 transition"
                     >
                       <Crosshair className="h-3 w-3" />
-                      <span>Locate 3D</span>
+                      <span>Định Vị 3D</span>
                     </button>
                   </div>
 
@@ -123,15 +123,17 @@ export const ScientificDataModal: React.FC = () => {
 
                   <div className="mt-2 grid grid-cols-3 gap-2 pt-2 border-t border-white/[0.06] font-mono text-[10px]">
                     <div>
-                      <span className="text-[#64748B] block">Heliocentric</span>
-                      <span className="text-[#F4F7FB]">{star.distanceLy.toLocaleString()} ly</span>
+                      <span className="text-[#64748B] block">Cách Mặt Trời</span>
+                      <span className="text-[#F4F7FB]">
+                        {star.distanceLy.toLocaleString()} năm ánh sáng
+                      </span>
                     </div>
                     <div>
-                      <span className="text-[#64748B] block">Temp (T_eff)</span>
+                      <span className="text-[#64748B] block">Nhiệt độ (T_eff)</span>
                       <span className="text-[#F8C98B]">{star.temperatureK.toLocaleString()} K</span>
                     </div>
                     <div>
-                      <span className="text-[#64748B] block">Radial Vel (v_r)</span>
+                      <span className="text-[#64748B] block">Vận tốc xuyên tâm</span>
                       <span className="text-[#67E8F9]">{star.radialVelocityKms} km/s</span>
                     </div>
                   </div>
@@ -160,13 +162,13 @@ export const ScientificDataModal: React.FC = () => {
                 <p className="text-xs text-[#94A3B8] leading-relaxed">{src.summary}</p>
 
                 <div className="rounded-lg bg-[#030509]/60 p-2 font-mono text-[10px] text-[#94A3B8]">
-                  <strong className="text-[#F8C98B]">Fidelity Role: </strong>
+                  <strong className="text-[#F8C98B]">Vai trò Khoa học: </strong>
                   {src.fidelityNote}
                 </div>
 
                 <div className="flex items-center justify-between pt-1 text-[11px]">
                   <span className="font-mono text-[10px] text-[#64748B]">
-                    Resolution: {src.spatialResolution}
+                    Độ phân giải: {src.spatialResolution}
                   </span>
                   <a
                     href={src.referenceUrl}
@@ -174,7 +176,7 @@ export const ScientificDataModal: React.FC = () => {
                     rel="noreferrer"
                     className="inline-flex items-center gap-1 font-mono text-[10px] text-[#67E8F9] hover:underline"
                   >
-                    <span>Publication / Archive</span>
+                    <span>Tài liệu gốc</span>
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
@@ -186,11 +188,11 @@ export const ScientificDataModal: React.FC = () => {
               <div className="rounded-xl border border-[#7AA8FF]/25 bg-[#7AA8FF]/10 p-3 text-xs text-[#94A3B8]">
                 <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#7AA8FF] mb-1">
                   <Layers className="h-3.5 w-3.5" />
-                  <span>Decoupled SimulationProvider Architecture</span>
+                  <span>Kiến Trúc SimulationProvider Độc Lập</span>
                 </div>
-                The application separates real-time browser rendering from precomputed HPC simulation
-                snapshots and future neural operator surrogates via the{' '}
-                <code className="text-[#F4F7FB]">SimulationProvider</code> contract.
+                Ứng dụng tách biệt hoàn toàn tầng hiển thị 3D thời gian thực khỏi các dữ liệu mô
+                phỏng siêu máy tính (HPC) và mô hình thay thế AI thông qua giao diện{' '}
+                <code className="text-[#F4F7FB]">SimulationProvider</code>.
               </div>
 
               {SIMULATION_PROVIDERS.map((provider) => {
@@ -209,16 +211,16 @@ export const ScientificDataModal: React.FC = () => {
                     <p className="text-xs text-[#94A3B8]">{provider.description}</p>
                     <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/[0.06] font-mono text-[10px]">
                       <div>
-                        <span className="text-[#64748B] block">Adapter ID</span>
+                        <span className="text-[#64748B] block">Mã Adapter</span>
                         <span className="text-[#F4F7FB]">{provider.id}</span>
                       </div>
                       <div>
-                        <span className="text-[#64748B] block">M_star (z=0)</span>
+                        <span className="text-[#64748B] block">Khối lượng sao (z=0)</span>
                         <span className="text-[#F8C98B]">{snap.totalStellarMassSolar}</span>
                       </div>
                       <div>
-                        <span className="text-[#64748B] block">SFR (z=0)</span>
-                        <span className="text-[#67E8F9]">{snap.starFormationRate} M☉/yr</span>
+                        <span className="text-[#64748B] block">Tốc độ tạo sao</span>
+                        <span className="text-[#67E8F9]">{snap.starFormationRate} M☉/năm</span>
                       </div>
                     </div>
                   </div>

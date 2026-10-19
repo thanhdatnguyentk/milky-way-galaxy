@@ -32,7 +32,7 @@ export const EvolutionTimeline: React.FC = () => {
               <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-[#7AA8FF]">
                 <Clock className="h-3.5 w-3.5" />
                 <span>
-                  EPOCH {stage.index + 1} / 7 · t = {stage.cosmicTimeGyr.toFixed(1)} Gyr (z ={' '}
+                  GIAI ĐOẠN {stage.index + 1} / 7 · t = {stage.cosmicTimeGyr.toFixed(1)} TỶ NĂM (z ={' '}
                   {stage.redshift})
                 </span>
               </span>
@@ -54,12 +54,12 @@ export const EvolutionTimeline: React.FC = () => {
               {isEvolutionPlaying ? (
                 <>
                   <Pause className="h-3.5 w-3.5" />
-                  <span>Pause Timeline</span>
+                  <span>Tạm Dừng</span>
                 </>
               ) : (
                 <>
                   <Play className="h-3.5 w-3.5" />
-                  <span>Play 13.8 Gyr</span>
+                  <span>Chạy Tự Động 13,8 Tỷ Năm</span>
                 </>
               )}
             </button>
@@ -71,7 +71,7 @@ export const EvolutionTimeline: React.FC = () => {
                 setActiveMode('overview');
               }}
               className="rounded-full p-1.5 text-[#94A3B8] hover:bg-white/10 hover:text-white transition"
-              title="Return to Present Epoch Overview"
+              title="Quay về kỷ nguyên hiện tại"
             >
               <X className="h-4 w-4" />
             </button>
@@ -98,18 +98,18 @@ export const EvolutionTimeline: React.FC = () => {
             <div className="rounded-xl border border-white/[0.06] bg-[#101725]/80 p-2.5">
               <div className="text-[9px] uppercase text-[#64748B] flex items-center gap-1">
                 <Flame className="h-3 w-3 text-[#F8C98B]" />
-                <span>SFR</span>
+                <span>Tốc Độ Tạo Sao</span>
               </div>
               <div className="mt-0.5 text-sm font-semibold text-[#F8C98B]">
                 {stage.parameters.starFormationRateSolarYr}
-                <span className="text-[10px] font-normal text-[#94A3B8]"> M☉/yr</span>
+                <span className="text-[10px] font-normal text-[#94A3B8]"> M☉/năm</span>
               </div>
             </div>
 
             <div className="rounded-xl border border-white/[0.06] bg-[#101725]/80 p-2.5">
               <div className="text-[9px] uppercase text-[#64748B] flex items-center gap-1">
                 <Layers className="h-3 w-3 text-[#67E8F9]" />
-                <span>Disk Settling</span>
+                <span>Độ Phẳng Đĩa</span>
               </div>
               <div className="mt-0.5 text-sm font-semibold text-[#67E8F9]">
                 {Math.round(stage.parameters.diskFlattening * 100)}%
@@ -117,7 +117,7 @@ export const EvolutionTimeline: React.FC = () => {
             </div>
 
             <div className="rounded-xl border border-white/[0.06] bg-[#101725]/80 p-2.5">
-              <div className="text-[9px] uppercase text-[#64748B]">Gas Fraction</div>
+              <div className="text-[9px] uppercase text-[#64748B]">Tỷ Lệ Khí</div>
               <div className="mt-0.5 text-sm font-semibold text-[#F4F7FB]">
                 {Math.round(stage.parameters.gasFraction * 100)}%
               </div>

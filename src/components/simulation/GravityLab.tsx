@@ -21,7 +21,7 @@ export const GravityLab: React.FC = () => {
         initial={{ opacity: 0, x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 24 }}
-        className="pointer-events-auto fixed right-3 top-20 z-20 flex w-[92vw] sm:w-[390px] max-h-[calc(100vh-145px)] flex-col rounded-2xl border border-white/[0.12] bg-[#090D18]/88 p-5 backdrop-blur-2xl shadow-2xl overflow-y-auto"
+        className="pointer-events-auto fixed right-3 top-20 z-20 flex w-[92vw] sm:w-[400px] max-h-[calc(100vh-145px)] flex-col rounded-2xl border border-white/[0.12] bg-[#090D18]/88 p-5 backdrop-blur-2xl shadow-2xl overflow-y-auto"
       >
         <div className="flex items-start justify-between gap-2">
           <div>
@@ -30,10 +30,10 @@ export const GravityLab: React.FC = () => {
               <ScienceBadge type="Simplified Physics Demo" size="sm" />
             </div>
             <h2 className="font-display text-lg font-semibold text-[#F4F7FB]">
-              Galactic Orbital Gravity Lab
+              Phòng Thí Nghiệm Quỹ Đạo Hấp Dẫn
             </h2>
             <p className="text-xs text-[#94A3B8]">
-              Symplectic Velocity Verlet (Leapfrog) Integrator
+              Bộ Tích Phân Symplectic Velocity Verlet (Leapfrog)
             </p>
           </div>
 
@@ -47,15 +47,15 @@ export const GravityLab: React.FC = () => {
         </div>
 
         <p className="mt-3 text-xs leading-relaxed text-[#94A3B8]">
-          Experiment with test-particle orbits inside the Milky Way’s gravitational potential.
-          Compare pure Keplerian point-mass gravity against a composite{' '}
-          <strong className="text-[#F4F7FB]">Miyamoto-Nagai Disk + NFW Dark Matter Halo</strong>.
+          Thực nghiệm động lực học quỹ đạo của các ngôi sao thử nghiệm trong trường hấp dẫn của Dải
+          Ngân Hà. So sánh trực tiếp giữa trường hấp dẫn khối lượng điểm Keplerian và thế hấp dẫn tổ
+          hợp <strong className="text-[#F4F7FB]">Đĩa Miyamoto-Nagai + Quầng Vật Chất Tối NFW</strong>.
         </p>
 
         {/* Potential Model Switcher */}
         <div className="mt-4">
           <label className="block font-mono text-[10px] uppercase tracking-wider text-[#94A3B8] mb-1.5">
-            Gravitational Potential Φ(R, z)
+            Mô Hình Thế Hấp Dẫn Φ(R, z)
           </label>
           <div className="grid grid-cols-2 gap-1.5 rounded-xl bg-[#030509]/80 p-1">
             {(['Miyamoto-Nagai + NFW Halo', 'Keplerian Point'] as const).map((model) => (
@@ -69,7 +69,7 @@ export const GravityLab: React.FC = () => {
                     : 'text-[#94A3B8] hover:text-white'
                 }`}
               >
-                {model === 'Keplerian Point' ? 'Keplerian Point (1/r)' : 'Disk + NFW Halo'}
+                {model === 'Keplerian Point' ? 'Khối Lượng Điểm (1/r)' : 'Đĩa + Quầng Vật Chất Tối'}
               </button>
             ))}
           </div>
@@ -79,7 +79,7 @@ export const GravityLab: React.FC = () => {
         <div className="mt-4 space-y-3.5">
           <div>
             <div className="flex justify-between font-mono text-xs">
-              <span className="text-[#94A3B8]">Central Core Mass (M_core)</span>
+              <span className="text-[#94A3B8]">Khối lượng Lõi Trung Tâm (M_core)</span>
               <span className="text-[#F8C98B] font-semibold">
                 {gravityConfig.centralMassSolarPow10.toFixed(2)} × 10¹⁰ M☉
               </span>
@@ -99,7 +99,7 @@ export const GravityLab: React.FC = () => {
 
           <div>
             <div className="flex justify-between font-mono text-xs">
-              <span className="text-[#94A3B8]">Launch Velocity Factor (v / v_circ)</span>
+              <span className="text-[#94A3B8]">Hệ số Vận tốc Phóng (v / v_tròn)</span>
               <span className="text-[#67E8F9] font-semibold">
                 {gravityConfig.initialVelocityScale.toFixed(2)}×
               </span>
@@ -119,7 +119,7 @@ export const GravityLab: React.FC = () => {
 
           <div>
             <div className="flex justify-between font-mono text-xs">
-              <span className="text-[#94A3B8]">Integration Time Step (Δt)</span>
+              <span className="text-[#94A3B8]">Bước Thời Gian Tích Phân (Δt)</span>
               <span className="text-[#F4F7FB] font-semibold">
                 {gravityConfig.timeStep.toFixed(3)}
               </span>
@@ -145,7 +145,7 @@ export const GravityLab: React.FC = () => {
               onChange={(e) => updateGravityConfig({ showTrails: e.target.checked })}
               className="accent-[#7AA8FF]"
             />
-            <span>Orbital Trails</span>
+            <span>Vệt Quỹ Đạo</span>
           </label>
 
           <label className="flex items-center gap-2 cursor-pointer">
@@ -155,7 +155,7 @@ export const GravityLab: React.FC = () => {
               onChange={(e) => updateGravityConfig({ showVelocityVectors: e.target.checked })}
               className="accent-[#7AA8FF]"
             />
-            <span>Velocity Vectors (v)</span>
+            <span>Vector Vận Tốc (v)</span>
           </label>
         </div>
 
@@ -169,12 +169,12 @@ export const GravityLab: React.FC = () => {
             {gravityConfig.isPaused ? (
               <>
                 <Play className="h-3.5 w-3.5" />
-                <span>Resume</span>
+                <span>Tiếp Tục</span>
               </>
             ) : (
               <>
                 <Pause className="h-3.5 w-3.5" />
-                <span>Pause</span>
+                <span>Tạm Dừng</span>
               </>
             )}
           </button>
@@ -185,7 +185,7 @@ export const GravityLab: React.FC = () => {
             className="flex items-center justify-center gap-1.5 rounded-xl border border-[#67E8F9]/40 bg-[#67E8F9]/15 px-3 py-2 text-xs font-medium text-[#67E8F9] hover:bg-[#67E8F9]/25 transition"
           >
             <Plus className="h-3.5 w-3.5" />
-            <span>Spawn ({gravityParticles.length}/24)</span>
+            <span>Thêm Sao ({gravityParticles.length}/24)</span>
           </button>
 
           <button
@@ -194,14 +194,14 @@ export const GravityLab: React.FC = () => {
             className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-[#F4F7FB] hover:bg-white/10 transition"
           >
             <RotateCcw className="h-3.5 w-3.5" />
-            <span>Reset</span>
+            <span>Đặt Lại</span>
           </button>
         </div>
 
         {/* Live Test Particle Telemetry */}
         <div className="mt-4 pt-3 border-t border-white/[0.08]">
           <div className="font-mono text-[10px] uppercase tracking-wider text-[#64748B] mb-2">
-            Active Test Bodies ({gravityParticles.length})
+            Thông Số Các Ngôi Sao Thử Nghiệm ({gravityParticles.length})
           </div>
           <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1 font-mono text-[11px]">
             {gravityParticles.slice(0, 6).map((p, idx) => {
@@ -217,7 +217,7 @@ export const GravityLab: React.FC = () => {
                       className="h-2 w-2 rounded-full"
                       style={{ backgroundColor: p.color }}
                     />
-                    <span className="text-[#F4F7FB]">Star #{idx + 1}</span>
+                    <span className="text-[#F4F7FB]">Sao #{idx + 1}</span>
                   </div>
                   <span className="text-[#94A3B8]">R = {r.toFixed(2)} kpc</span>
                   <span className="text-[#67E8F9]">|v| = {(v * 85).toFixed(0)} km/s</span>
